@@ -108,6 +108,13 @@ namespace Series_Analyzer
             return sreies;
         }
 
+        static void displayByOrder(List<int> sreies)
+        {
+            foreach (int num in sreies)
+            {
+                Console.WriteLine(num);
+            }
+        }
 
         static void Main(string[] args)
         {

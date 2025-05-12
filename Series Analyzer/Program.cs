@@ -112,7 +112,7 @@ namespace Series_Analyzer
         {
             foreach (int num in sreies)
             {
-                Console.WriteLine(num);
+                Console.Write(num + ",");
             }
         }
 
@@ -127,7 +127,15 @@ namespace Series_Analyzer
             return len;
         }
            
-        
+        static void displayRevers(List<int> sreies)
+        {
+            int len = seriesLen(sreies);
+
+            for (int i = len; i >= 0; i--)
+            {
+                Console.Write(i + ",");
+            }
+        }
         static void Main(string[] args)
         {
             List<int> currentSeries = new List<int>();

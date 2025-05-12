@@ -1,7 +1,0 @@
-C:\Users\ST\vs projects\Series Analyzer\Series Analyzer\bin\Debug\Series Analyzer.exe.config
-C:\Users\ST\vs projects\Series Analyzer\Series Analyzer\bin\Debug\Series Analyzer.exe
-C:\Users\ST\vs projects\Series Analyzer\Series Analyzer\bin\Debug\Series Analyzer.pdb
-C:\Users\ST\vs projects\Series Analyzer\Series Analyzer\obj\Debug\Series Analyzer.csproj.AssemblyReference.cache
-C:\Users\ST\vs projects\Series Analyzer\Series Analyzer\obj\Debug\Series Analyzer.csproj.CoreCompileInputs.cache
-C:\Users\ST\vs projects\Series Analyzer\Series Analyzer\obj\Debug\Series Analyzer.exe
-C:\Users\ST\vs projects\Series Analyzer\Series Analyzer\obj\Debug\Series Analyzer.pdb

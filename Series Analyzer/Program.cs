@@ -116,6 +116,18 @@ namespace Series_Analyzer
             }
         }
 
+        static int seriesLen(List<int> sreies)
+        {
+            int len = 0;
+            
+            foreach (int num in sreies)
+            {
+                len++;
+            }
+            return len;
+        }
+           
+        
         static void Main(string[] args)
         {
             List<int> currentSeries = new List<int>();

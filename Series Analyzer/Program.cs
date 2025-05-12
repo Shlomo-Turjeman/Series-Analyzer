@@ -83,6 +83,17 @@ namespace Series_Analyzer
             return options.Contains(userChoice);
         }
 
+        static string getCoice(string userChoice)
+        {
+            while (! validateCoice(userChoice))
+            {
+                Console.WriteLine("Invalid choice please try agin: ");
+                userChoice = Console.ReadLine();
+            }
+
+            return userChoice;
+        }
+
 
         static void Main(string[] args)
         {

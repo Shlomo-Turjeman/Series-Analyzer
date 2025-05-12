@@ -57,6 +57,17 @@ namespace Series_Analyzer
 
         static void Main(string[] args)
         {
+            List<int> currentSeries = new List<int>();
+
+           if (! validateSeries(args.ToString()))
+            {
+                currentSeries = convertToNum(getSeries());
+            }
+           else
+            {
+                currentSeries = convertToNum(getSeries());
+            }
+
            
         }
     }

@@ -73,9 +73,9 @@ namespace Series_Analyzer
                 "j. Exit.\n" + 
                 "Enter your choice: ");
 
-            string coich  = Console.ReadLine();
+            string choice  = Console.ReadLine();
 
-            return coich;
+            return choice;
         }
 
         static bool validateCoice(string userChoice)

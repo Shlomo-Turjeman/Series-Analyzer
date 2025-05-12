@@ -1,4 +1,4 @@
-﻿    using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,6 +34,21 @@ namespace Series_Analyzer
             string[] numStrArr = strNumbers.Split(' ');
 
             return numStrArr;
+        }
+
+        static List<int> convertToNum(string[] strNumList)
+        {
+            List<int> seriesNumbers = new List<int>();
+
+            foreach (string strNum in strNumList)
+            {
+                if (int.TryParse(strNum, out _))
+                {
+                    seriesNumbers.Add(int.Parse(strNum));
+                }
+            }
+
+            return seriesNumbers;
         }
 
         static void Main(string[] args)

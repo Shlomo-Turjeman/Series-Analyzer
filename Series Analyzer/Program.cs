@@ -75,6 +75,15 @@ namespace Series_Analyzer
 
             return coich;
         }
+
+        static bool validateCoice(string userChoice)
+        {
+            string[] options = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j" };
+
+            return options.Contains(userChoice);
+        }
+
+
         static void Main(string[] args)
         {
             List<int> currentSeries = new List<int>();

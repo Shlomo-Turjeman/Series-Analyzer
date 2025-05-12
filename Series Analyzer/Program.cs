@@ -21,7 +21,20 @@ namespace Series_Analyzer
 
             return true;
         }
-        
+        static string[] getSeries()
+        {
+            string strNumbers = "";
+            do
+            {
+                Console.WriteLine("Enter series of number with a space");
+                strNumbers = Console.ReadLine();
+            }
+            while (!validateSeries(strNumbers));
+
+            string[] numStrArr = strNumbers.Split(' ');
+
+            return numStrArr;
+        }
 
         static void Main(string[] args)
         {

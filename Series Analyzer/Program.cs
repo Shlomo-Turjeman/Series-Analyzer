@@ -11,6 +11,10 @@ namespace Series_Analyzer
 
         static bool validateSeries(string series)
         {
+            if (series.Replace(" ", "").Length < 3)
+            {
+                return false;
+            }
             foreach (char item in series)
             {
                 if ((item.ToString() != " ") && (item < '0' || item > '9'))
@@ -53,7 +57,7 @@ namespace Series_Analyzer
 
         static void Main(string[] args)
         {
-            Console.WriteLine(validateSeries(args.ToString()));
+           
         }
     }
 }

@@ -9,16 +9,18 @@ namespace Series_Analyzer
     internal class Program
     {
 
-        static bool validateSeries(string series)
+        static bool validateSeries(string[] series)
         {
-            if (series.Replace(" ", "").Length < 3)
+            Console.WriteLine(series);
+            if (series.Length < 3)
             {
                 return false;
             }
-            foreach (char item in series)
+            foreach (string item in series)
             {
-                if ((item.ToString() != " ") && (item < '0' || item > '9'))
+                if ((item != " ") && (! int.TryParse(item, out _)) && (int.Parse(item) < 0))
                 {
+                    Console.WriteLine(item);
                     return false;
                 }
             }
@@ -28,14 +30,16 @@ namespace Series_Analyzer
         static string[] getSeries()
         {
             string strNumbers = "";
+            string[] numStrArr;
+
             do
             {
-                Console.WriteLine("Enter series of number with a space");
+                Console.WriteLine("Enter series of number with a space: ");
                 strNumbers = Console.ReadLine();
-            }
-            while (!validateSeries(strNumbers));
+                numStrArr = strNumbers.Split(' ');
 
-            string[] numStrArr = strNumbers.Split(' ');
+            }
+            while (!validateSeries(numStrArr));
 
             return numStrArr;
         }
@@ -138,8 +142,9 @@ namespace Series_Analyzer
         {
             List<int> currentSeries = new List<int>();
             string choice;
+            Console.WriteLine(validateSeries(args)); 
 
-            if (validateSeries(args.ToString()))
+            if (validateSeries(args))
             {
                 currentSeries = convertToNum(args);
             }
@@ -147,11 +152,12 @@ namespace Series_Analyzer
             {
                 currentSeries = convertToNum(getSeries());
             }
-            
+
             foreach (int num in currentSeries)
             {
                 Console.Write(num + ",");
             }
+            
             do
             {
                 choice = getCoice(menu());

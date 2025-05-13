@@ -8,7 +8,7 @@ namespace Series_Analyzer
 {
     internal class Program
     {
-        //משתנה גלובלי של סדרת המספרים.
+        //משתנה גלובלי של סדרת המספרים
         static List<float> currentSeries = new List<float>();
 
         //הדפסת שגיאה.

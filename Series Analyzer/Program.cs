@@ -8,18 +8,26 @@ namespace Series_Analyzer
 {
     internal class Program
     {
-        static List<int> currentSeries = new List<int>();
+        static List<float> currentSeries = new List<float>();
 
+        static void printError()
+        {
+            Console.WriteLine("Invalid input please try agin: ");
+        }
         static bool validateSeries(string[] series)
         {
-            Console.WriteLine(series);
             if (series.Length < 3)
             {
                 return false;
             }
             foreach (string item in series)
             {
-                if ((item != " ") && (! int.TryParse(item, out _)) && (int.Parse(item) < 0))
+                if ((item != " ") && (! float.TryParse(item, out _)))
+                {
+                    return false;
+                }
+
+                if (float.Parse(item) < 0)
                 {
                     return false;
                 }
@@ -29,30 +37,32 @@ namespace Series_Analyzer
         }
         static string[] getSeries()
         {
-            string strNumbers = "";
             string[] numStrArr;
 
             do
             {
-                Console.WriteLine("Enter series of number with a space: ");
-                strNumbers = Console.ReadLine();
-                numStrArr = strNumbers.Split(' ');
+                Console.WriteLine("Enter series of positive number with a space: ");
+                numStrArr = Console.ReadLine().Split(' ');
 
+                if (! validateSeries(numStrArr))
+                {
+                    printError();
+                }
             }
             while (!validateSeries(numStrArr));
 
             return numStrArr;
         }
 
-        static List<int> convertToNum(string[] strNumList)
+        static List<float> convertToNum(string[] strNumList)
         {
-            List<int> seriesNumbers = new List<int>();
+            List<float> seriesNumbers = new List<float>();
 
             foreach (string strNum in strNumList)
             {
-                if (int.TryParse(strNum, out _))
+                if (float.TryParse(strNum, out _))
                 {
-                    seriesNumbers.Add(int.Parse(strNum));
+                    seriesNumbers.Add(float.Parse(strNum));
                 }
             }
 
@@ -84,35 +94,27 @@ namespace Series_Analyzer
         {
             string[] options = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j" };
 
-            return options.Contains(userChoice);
+            if (! options.Contains(userChoice))
+            {
+                printError();
+                return false;
+            }
+            return true;
         }
 
         static string getCoice(string userChoice)
         {
             while (! validateCoice(userChoice))
             {
-                Console.WriteLine("Invalid choice please try agin: ");
                 userChoice = Console.ReadLine();
             }
 
             return userChoice;
         }
 
-        static List<int> replaceSreies(List<int> sreies)
+        static void displayByOrder(List<float> sreies)
         {
-            sreies.Clear();
-            List<int> newSeries = convertToNum(getSeries());
-
-            foreach (int num in sreies)
-            {
-                sreies.Add(num);
-            }
-            return sreies;
-        }
-
-        static void displayByOrder(List<int> sreies)
-        {
-            foreach (int num in sreies)
+            foreach (float num in sreies)
             {
                 Console.Write(num + ",");
             }
@@ -120,33 +122,34 @@ namespace Series_Analyzer
             Console.WriteLine("");
         }
 
-        static int seriesLen(List<int> sreies)
+        static int seriesLen(List<float> sreies)
         {
             int len = 0;
-            
-            foreach (int num in sreies)
+
+            foreach (float num in sreies)
             {
                 len++;
             }
             return len;
         }
-           
-        static void displayRevers(List<int> sreies)
+
+        static void displayRevers(List<float> sreies)
         {
             int len = seriesLen(sreies);
 
-            for (int i = len -1; i >= 0; i--)
+            for (int i = len - 1; i >= 0; i--)
             {
                 Console.Write(sreies[i] + ",");
             }
             Console.WriteLine("");
         }
 
-        static List<int> sortSeries(List<int> sreies)
+        static List<float> sortSeries(List<float> sreies)
         {
-            int i, j, len, current;
+            int i, j, len;
+            float current;
             bool flag;
-            len = sreies.Count;
+            len = seriesLen(sreies);
 
             for (i = 0; i < len - 1; i++)
             {
@@ -168,11 +171,11 @@ namespace Series_Analyzer
             return sreies;
         }
 
-        static int displayMax(List<int> sreies)
+        static float displayMax(List<float> sreies)
         {
-            int currentMax = sreies[0];
+            float currentMax = sreies[0];
 
-            foreach (int num in sreies)
+            foreach (float num in sreies)
             {
                 if (num > currentMax)
                 {
@@ -183,11 +186,11 @@ namespace Series_Analyzer
            return currentMax;
         }
 
-        static int displayMin(List<int> sreies)
+        static float displayMin(List<float> sreies)
         {
-            int currentMin = sreies[0];
+            float currentMin = sreies[0];
 
-            foreach (int num in sreies)
+            foreach (float num in sreies)
             {
                 if (num < currentMin)
                 {
@@ -198,11 +201,11 @@ namespace Series_Analyzer
             return currentMin;
         }
 
-        static int displaySum(List<int> sreies)
+        static float displaySum(List<float> sreies)
         {
-            int sum = 0;
+            float sum = 0;
 
-            foreach (int num in sreies)
+            foreach (float num in sreies)
             {
                 sum += num;
             }
@@ -210,22 +213,10 @@ namespace Series_Analyzer
             return sum;
         }
 
-        static int displayLenght(List<int> sreies)
+        static float displayAverage(List<float> sreies)
         {
-            int len = 0;
-
-            foreach (int num in sreies)
-            {
-                len++;
-            }
-
-            return len;
-        }
-
-        static int displayAverage(List<int> sreies)
-        {
-            int sum = displaySum(sreies);
-            int len = displayLenght(sreies);
+            float sum = displaySum(sreies);
+            float len = seriesLen(sreies);
             
             return sum / len;
         }
@@ -262,7 +253,7 @@ namespace Series_Analyzer
                         Console.WriteLine(displayAverage(currentSeries));
                         continue;
                     case "h":
-                        Console.WriteLine(displayLenght(currentSeries));
+                        Console.WriteLine(seriesLen(currentSeries));
                         continue;
                     case "i":
                         Console.WriteLine(displaySum(currentSeries));
@@ -271,13 +262,12 @@ namespace Series_Analyzer
 
             }
             while (choice != "j");
+
+            Console.WriteLine("Bey");
         }
-
-
 
         static void Main(string[] args)
         {
-
             if (validateSeries(args))
             {
                 currentSeries = convertToNum(args);

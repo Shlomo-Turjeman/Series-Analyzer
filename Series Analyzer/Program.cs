@@ -151,7 +151,7 @@ namespace Series_Analyzer
 
             for (int i = len - 1; i >= 0; i--)
             {
-                Console.Write(sreies[i] + ",");
+                Console.Write(sreies[i] + " ");
             }
             Console.WriteLine("");
         }

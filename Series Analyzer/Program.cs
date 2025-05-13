@@ -294,20 +294,36 @@ namespace Series_Analyzer
             Console.WriteLine("Closing...");
         }
 
-        static void Main(string[] args)
+        static void setSeries(string[] userArgs)
         {
-            bool isValidate = validateSeries(args);
+            bool isValidate = validateSeries(userArgs);
 
             if (isValidate)
             {
-                currentSeries = convertToNum(args);
+                currentSeries = convertToNum(userArgs);
             }
-           else
+            else
             {
                 string[] stringSeries = getSeries();
                 currentSeries = convertToNum(stringSeries);
             }
 
+        }
+
+        static void Main(string[] args)
+        {
+           // bool isValidate = validateSeries(args);
+
+           // if (isValidate)
+           // {
+           //     currentSeries = convertToNum(args);
+           // }
+           //else
+           // {
+           //     string[] stringSeries = getSeries();
+           //     currentSeries = convertToNum(stringSeries);
+           // }
+            setSeries(args);
             runMenu();
         }
     }

@@ -138,6 +138,33 @@ namespace Series_Analyzer
                 Console.Write(i + ",");
             }
         }
+
+        static int[] bubbleSort(int[] sreies)
+        {
+            int i, j, len, current;
+            bool flag;
+            len = sreies.Length;
+
+            for (i = 0; i < len - 1; i++)
+            {
+                flag = false;
+                for (j = 0; j < len - i - 1; j++)
+                {
+                    if (sreies[j] > sreies[j + 1])
+                    {
+                        current = sreies[j];
+                        sreies[j] = sreies[j + 1];
+                        sreies[j + 1] = current;
+                        flag = true;
+                    }
+                }
+
+                if (! flag)
+                    break;
+            }
+            return sreies;
+        }
+
         static void Main(string[] args)
         {
             List<int> currentSeries = new List<int>();
@@ -153,11 +180,6 @@ namespace Series_Analyzer
                 currentSeries = convertToNum(getSeries());
             }
 
-            foreach (int num in currentSeries)
-            {
-                Console.Write(num + ",");
-            }
-            
             do
             {
                 choice = getCoice(menu());
@@ -167,3 +189,5 @@ namespace Series_Analyzer
         }
     }
 }
+ 
+  

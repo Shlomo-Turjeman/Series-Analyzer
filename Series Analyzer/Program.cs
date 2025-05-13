@@ -31,7 +31,7 @@ namespace Series_Analyzer
                     return false;
                 }
 
-                if (float.Parse(item) < 0)
+                if (float.Parse(item) <= 0)
                 {
                     return false;
                 }
@@ -77,7 +77,7 @@ namespace Series_Analyzer
         }
 
         //הדפסת התפריט וקבלת בחירת המשתמש.
-        static string menu()
+        static string displayMenu()
         {
             Console.WriteLine("Menu:\n" +
                 "a. Input a Series. (Replace the current series)\n" +
@@ -122,9 +122,9 @@ namespace Series_Analyzer
         }
 
         //הצגת הסדרה בסדר שהמשתמש הכניס.
-        static void displayByOrder(List<float> sreies)
+        static void displayByOrder(List<float> series)
         {
-            foreach (float num in sreies)
+            foreach (float num in series)
             {
                 Console.Write(num + " ");
             }
@@ -151,7 +151,7 @@ namespace Series_Analyzer
 
             for (int i = len - 1; i >= 0; i--)
             {
-                Console.Write(series[i] + ",");
+                Console.Write(series[i] + " ");
             }
             Console.WriteLine("");
         }
@@ -186,11 +186,11 @@ namespace Series_Analyzer
 
 
         //מציאת המספר הכי גדול בסדרה.
-        static float displayMax(List<float> sreies)
+        static float displayMax(List<float> series)
         {
-            float currentMax = sreies[0];
+            float currentMax = series[0];
 
-            foreach (float num in sreies)
+            foreach (float num in series)
             {
                 if (num > currentMax)
                 {
@@ -202,11 +202,11 @@ namespace Series_Analyzer
         }
 
         //מציאת המספר הכי קטו בסדרה.
-        static float displayMin(List<float> sreies)
+        static float displayMin(List<float> series)
         {
-            float currentMin = sreies[0];
+            float currentMin = series[0];
 
-            foreach (float num in sreies)
+            foreach (float num in series)
             {
                 if (num < currentMin)
                 {
@@ -218,11 +218,11 @@ namespace Series_Analyzer
         }
 
         //חישוב סכום הסדרה.
-        static float displaySum(List<float> sreies)
+        static float displaySum(List<float> series)
         {
             float sum = 0;
 
-            foreach (float num in sreies)
+            foreach (float num in series)
             {
                 sum += num;
             }
@@ -231,10 +231,10 @@ namespace Series_Analyzer
         }
 
         //חישוב ממוצע הסדרה.
-        static float displayAverage(List<float> sreies)
+        static float displayAverage(List<float> series)
         {
-            float sum = displaySum(sreies);
-            float len = seriesLen(sreies);
+            float sum = displaySum(series);
+            float len = seriesLen(series);
             
             return sum / len;
         }
@@ -242,11 +242,13 @@ namespace Series_Analyzer
         //ביצוע הפעולה שנבחרה מהתפריט.
         static void runMenu()
         {
-            string choice;
+            string choice, validateChoice;
 
             do
             {
-                choice = getChoice(menu());
+
+                choice = displayMenu();
+                validateChoice = getChoice(choice);
 
                 switch (choice)
                 {
@@ -310,5 +312,3 @@ namespace Series_Analyzer
         }
     }
 }
- 
-  

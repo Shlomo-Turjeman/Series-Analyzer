@@ -139,11 +139,11 @@ namespace Series_Analyzer
             }
         }
 
-        static int[] bubbleSort(int[] sreies)
+        static List<int> bubbleSort(List<int> sreies)
         {
             int i, j, len, current;
             bool flag;
-            len = sreies.Length;
+            len = sreies.Count;
 
             for (i = 0; i < len - 1; i++)
             {

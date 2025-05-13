@@ -126,7 +126,7 @@ namespace Series_Analyzer
         {
             foreach (float num in sreies)
             {
-                Console.Write(num + ",");
+                Console.Write(num + " ");
             }
 
             Console.WriteLine("");

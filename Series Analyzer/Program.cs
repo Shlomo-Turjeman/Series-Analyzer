@@ -31,7 +31,7 @@ namespace Series_Analyzer
                     return false;
                 }
 
-                if (float.Parse(item) < 0)
+                if (float.Parse(item) <= 0)
                 {
                     return false;
                 }
@@ -151,7 +151,7 @@ namespace Series_Analyzer
 
             for (int i = len - 1; i >= 0; i--)
             {
-                Console.Write(sreies[i] + ",");
+                Console.Write(sreies[i] + " ");
             }
             Console.WriteLine("");
         }

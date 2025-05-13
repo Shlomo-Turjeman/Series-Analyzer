@@ -219,6 +219,14 @@ namespace Series_Analyzer
             return len;
         }
 
+        static int displayAverage(List<int> sreies)
+        {
+            int sum = displaySum(sreies);
+            int len = displayLenght(sreies);
+            
+            return sum / len;
+        }
+
         static void Main(string[] args)
         {
             List<int> currentSeries = new List<int>();

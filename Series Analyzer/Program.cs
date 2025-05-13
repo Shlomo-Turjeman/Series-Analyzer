@@ -8,6 +8,7 @@ namespace Series_Analyzer
 {
     internal class Program
     {
+        static List<int> currentSeries = new List<int>();
 
         static bool validateSeries(string[] series)
         {
@@ -20,7 +21,6 @@ namespace Series_Analyzer
             {
                 if ((item != " ") && (! int.TryParse(item, out _)) && (int.Parse(item) < 0))
                 {
-                    Console.WriteLine(item);
                     return false;
                 }
             }
@@ -64,7 +64,7 @@ namespace Series_Analyzer
         {
             Console.WriteLine("Menu:\n" +
                 "a. Input a Series. (Replace the current series)\n" +
-                "b. Display the series in the order it was entered." +
+                "b. Display the series in the order it was entered.\n" +
                 "c. Display the series in the reversed order it was entered.\n" +
                 "d. Display the series in sorted order (from low to high).\n" +
                 "e. Display the Max value of the series.\n" +
@@ -116,6 +116,8 @@ namespace Series_Analyzer
             {
                 Console.Write(num + ",");
             }
+
+            Console.WriteLine("");
         }
 
         static int seriesLen(List<int> sreies)
@@ -133,13 +135,14 @@ namespace Series_Analyzer
         {
             int len = seriesLen(sreies);
 
-            for (int i = len; i >= 0; i--)
+            for (int i = len -1; i >= 0; i--)
             {
-                Console.Write(i + ",");
+                Console.Write(sreies[i] + ",");
             }
+            Console.WriteLine("");
         }
 
-        static List<int> bubbleSort(List<int> sreies)
+        static List<int> sortSeries(List<int> sreies)
         {
             int i, j, len, current;
             bool flag;
@@ -227,11 +230,53 @@ namespace Series_Analyzer
             return sum / len;
         }
 
+        static void runMenu()
+        {
+            string choice;
+
+            do
+            {
+                choice = getCoice(menu());
+
+                switch (choice)
+                {
+                    case "a":
+                        currentSeries = convertToNum(getSeries());
+                        continue;
+                    case "b":
+                        displayByOrder(currentSeries);
+                        continue;
+                    case "c":
+                        displayRevers(currentSeries);
+                        continue;
+                    case "d":
+                        displayByOrder(sortSeries(currentSeries));
+                        continue;
+                    case "e":
+                        Console.WriteLine(displayMax(currentSeries));
+                        continue;
+                    case "f":
+                        Console.WriteLine(displayMin(currentSeries));
+                        continue;
+                    case "g":
+                        Console.WriteLine(displayAverage(currentSeries));
+                        continue;
+                    case "h":
+                        Console.WriteLine(displayLenght(currentSeries));
+                        continue;
+                    case "i":
+                        Console.WriteLine(displaySum(currentSeries));
+                        continue;
+                }
+
+            }
+            while (choice != "j");
+        }
+
+
+
         static void Main(string[] args)
         {
-            List<int> currentSeries = new List<int>();
-            string choice;
-            Console.WriteLine(validateSeries(args)); 
 
             if (validateSeries(args))
             {
@@ -242,12 +287,7 @@ namespace Series_Analyzer
                 currentSeries = convertToNum(getSeries());
             }
 
-            do
-            {
-                choice = getCoice(menu());
-            }
-            while (choice != "j");
-
+            runMenu();
         }
     }
 }

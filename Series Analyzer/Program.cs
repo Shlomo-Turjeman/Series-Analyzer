@@ -40,10 +40,8 @@ namespace Series_Analyzer
             return numStrArr;
         }
 
-        static List<int> convertToNum()
+        static List<int> convertToNum(string[] strNumList)
         {
-            string[] strNumList = getSeries();
-
             List<int> seriesNumbers = new List<int>();
 
             foreach (string strNum in strNumList)
@@ -99,7 +97,7 @@ namespace Series_Analyzer
         static List<int> replaceSreies(List<int> sreies)
         {
             sreies.Clear();
-            List<int> newSeries = convertToNum();
+            List<int> newSeries = convertToNum(getSeries());
 
             foreach (int num in sreies)
             {
@@ -141,15 +139,19 @@ namespace Series_Analyzer
             List<int> currentSeries = new List<int>();
             string choice;
 
-            if (! validateSeries(args.ToString()))
+            if (validateSeries(args.ToString()))
             {
-                currentSeries = convertToNum();
+                currentSeries = convertToNum(args);
             }
            else
             {
-                currentSeries = convertToNum();
+                currentSeries = convertToNum(getSeries());
             }
-
+            
+            foreach (int num in currentSeries)
+            {
+                Console.Write(num + ",");
+            }
             do
             {
                 choice = getCoice(menu());

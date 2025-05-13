@@ -8,12 +8,16 @@ namespace Series_Analyzer
 {
     internal class Program
     {
+        //משתנה גלובלי של סדרת המספרים.
         static List<float> currentSeries = new List<float>();
 
+        //הדפסת שגיאה.
         static void printError()
         {
             Console.WriteLine("Invalid input please try agin: ");
         }
+        
+        //בדיקה האם הסדרה עומדת בדרישות קלט.
         static bool validateSeries(string[] series)
         {
             if (series.Length < 3)
@@ -35,6 +39,8 @@ namespace Series_Analyzer
 
             return true;
         }
+
+        //קבלת סדרת מספרים מהמשתמש ובדיקת הקלט.
         static string[] getSeries()
         {
             string[] numStrArr;
@@ -54,6 +60,7 @@ namespace Series_Analyzer
             return numStrArr;
         }
 
+        //המרת סדרת המספרים לרשימה של מספרים.
         static List<float> convertToNum(string[] strNumList)
         {
             List<float> seriesNumbers = new List<float>();
@@ -69,7 +76,7 @@ namespace Series_Analyzer
             return seriesNumbers;
         }
 
-
+        //הדפסת התפריט וקבלת בחירת המשתמש.
         static string menu()
         {
             Console.WriteLine("Menu:\n" +
@@ -90,6 +97,7 @@ namespace Series_Analyzer
             return coich;
         }
 
+        //אימות בחירת המשתמש.
         static bool validateCoice(string userChoice)
         {
             string[] options = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j" };
@@ -102,6 +110,7 @@ namespace Series_Analyzer
             return true;
         }
 
+        //לולאה לבקשת בחירה חוזרת כשהקלט לא תקין.
         static string getCoice(string userChoice)
         {
             while (! validateCoice(userChoice))
@@ -112,6 +121,7 @@ namespace Series_Analyzer
             return userChoice;
         }
 
+        //הצגת הסדרה בסדר שהמשתמש הכניס.
         static void displayByOrder(List<float> sreies)
         {
             foreach (float num in sreies)
@@ -122,6 +132,7 @@ namespace Series_Analyzer
             Console.WriteLine("");
         }
 
+        //בדיקת אורך הסדרה.
         static int seriesLen(List<float> sreies)
         {
             int len = 0;
@@ -133,6 +144,7 @@ namespace Series_Analyzer
             return len;
         }
 
+        //הצגת הסדרה בסדר הפוך מהסדר שהמשתמש הכניס.
         static void displayRevers(List<float> sreies)
         {
             int len = seriesLen(sreies);
@@ -144,6 +156,7 @@ namespace Series_Analyzer
             Console.WriteLine("");
         }
 
+        //מיון סדרת המספרים.
         static List<float> sortSeries(List<float> sreies)
         {
             int i, j, len;
@@ -171,6 +184,8 @@ namespace Series_Analyzer
             return sreies;
         }
 
+
+        //מציאת המספר הכי גדול בסדרה.
         static float displayMax(List<float> sreies)
         {
             float currentMax = sreies[0];
@@ -186,6 +201,7 @@ namespace Series_Analyzer
            return currentMax;
         }
 
+        //מציאת המספר הכי קטו בסדרה.
         static float displayMin(List<float> sreies)
         {
             float currentMin = sreies[0];
@@ -201,6 +217,7 @@ namespace Series_Analyzer
             return currentMin;
         }
 
+        //חישוב סכום הסדרה.
         static float displaySum(List<float> sreies)
         {
             float sum = 0;
@@ -213,6 +230,7 @@ namespace Series_Analyzer
             return sum;
         }
 
+        //חישוב ממוצע הסדרה.
         static float displayAverage(List<float> sreies)
         {
             float sum = displaySum(sreies);
@@ -221,6 +239,7 @@ namespace Series_Analyzer
             return sum / len;
         }
 
+        //ביצוע הפעולה שנבחרה מהתפריט.
         static void runMenu()
         {
             string choice;

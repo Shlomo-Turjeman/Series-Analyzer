@@ -165,6 +165,48 @@ namespace Series_Analyzer
             return sreies;
         }
 
+        static int displayMax(List<int> sreies)
+        {
+            int currentMax = sreies[0];
+
+            foreach (int num in sreies)
+            {
+                if (num > currentMax)
+                {
+                    currentMax = num;
+                }
+            }
+
+           return currentMax;
+        }
+
+        static int displayMin(List<int> sreies)
+        {
+            int currentMin = sreies[0];
+
+            foreach (int num in sreies)
+            {
+                if (num < currentMin)
+                {
+                    currentMin = num;
+                }
+            }
+
+            return currentMin;
+        }
+
+        static int displaySum(List<int> sreies)
+        {
+            int sum = 0;
+
+            foreach (int num in sreies)
+            {
+                sum += num;
+            }
+
+            return sum;
+        }
+
         static void Main(string[] args)
         {
             List<int> currentSeries = new List<int>();

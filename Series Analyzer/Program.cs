@@ -79,7 +79,7 @@ namespace Series_Analyzer
         //הדפסת התפריט וקבלת בחירת המשתמש.
         static string displayMenu()
         {
-            Console.WriteLine("Menu:\n" +
+            Console.WriteLine("********Menu********\n" +
                 "a. Input a Series. (Replace the current series)\n" +
                 "b. Display the series in the order it was entered.\n" +
                 "c. Display the series in the reversed order it was entered.\n" +
@@ -151,11 +151,7 @@ namespace Series_Analyzer
 
             for (int i = len - 1; i >= 0; i--)
             {
-<<<<<<< HEAD
                 Console.Write(series[i] + " ");
-=======
-                Console.Write(sreies[i] + " ");
->>>>>>> 62cd83daa2d53f0eef26899921669d601b4808fd
             }
             Console.WriteLine("");
         }
@@ -295,7 +291,7 @@ namespace Series_Analyzer
             }
             while (choice != "j");
 
-            Console.WriteLine("Bey");
+            Console.WriteLine("Closing...");
         }
 
         static void Main(string[] args)
@@ -316,8 +312,3 @@ namespace Series_Analyzer
         }
     }
 }
-<<<<<<< HEAD
-=======
- 
-  
->>>>>>> 62cd83daa2d53f0eef26899921669d601b4808fd

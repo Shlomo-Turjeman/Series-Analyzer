@@ -14,7 +14,7 @@ namespace Series_Analyzer
         //הדפסת שגיאה.
         static void printError()
         {
-            Console.WriteLine("Invalid input please try agin: ");
+            Console.WriteLine("Invalid input please try again: ");
         }
         
         //בדיקה האם הסדרה עומדת בדרישות קלט.
@@ -92,13 +92,13 @@ namespace Series_Analyzer
                 "j. Exit.\n" + 
                 "Enter your choice: ");
 
-            string coich  = Console.ReadLine();
+            string choich  = Console.ReadLine();
 
-            return coich;
+            return choich;
         }
 
         //אימות בחירת המשתמש.
-        static bool validateCoice(string userChoice)
+        static bool validateChoice(string userChoice)
         {
             string[] options = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j" };
 
@@ -111,9 +111,9 @@ namespace Series_Analyzer
         }
 
         //לולאה לבקשת בחירה חוזרת כשהקלט לא תקין.
-        static string getCoice(string userChoice)
+        static string getChoice(string userChoice)
         {
-            while (! validateCoice(userChoice))
+            while (! validateChoice(userChoice))
             {
                 userChoice = Console.ReadLine();
             }
@@ -133,11 +133,11 @@ namespace Series_Analyzer
         }
 
         //בדיקת אורך הסדרה.
-        static int seriesLen(List<float> sreies)
+        static int seriesLen(List<float> series)
         {
             int len = 0;
 
-            foreach (float num in sreies)
+            foreach (float num in series)
             {
                 len++;
             }
@@ -145,35 +145,35 @@ namespace Series_Analyzer
         }
 
         //הצגת הסדרה בסדר הפוך מהסדר שהמשתמש הכניס.
-        static void displayRevers(List<float> sreies)
+        static void displayReverse(List<float> series)
         {
-            int len = seriesLen(sreies);
+            int len = seriesLen(series);
 
             for (int i = len - 1; i >= 0; i--)
             {
-                Console.Write(sreies[i] + ",");
+                Console.Write(series[i] + ",");
             }
             Console.WriteLine("");
         }
 
         //מיון סדרת המספרים.
-        static List<float> sortSeries(List<float> sreies)
+        static List<float> sortSeries(List<float> series)
         {
             int i, j, len;
             float current;
             bool flag;
-            len = seriesLen(sreies);
+            len = seriesLen(series);
 
             for (i = 0; i < len - 1; i++)
             {
                 flag = false;
                 for (j = 0; j < len - i - 1; j++)
                 {
-                    if (sreies[j] > sreies[j + 1])
+                    if (series[j] > series[j + 1])
                     {
-                        current = sreies[j];
-                        sreies[j] = sreies[j + 1];
-                        sreies[j + 1] = current;
+                        current = series[j];
+                        series[j] = series[j + 1];
+                        series[j + 1] = current;
                         flag = true;
                     }
                 }
@@ -181,7 +181,7 @@ namespace Series_Analyzer
                 if (! flag)
                     break;
             }
-            return sreies;
+            return series;
         }
 
 
@@ -246,36 +246,43 @@ namespace Series_Analyzer
 
             do
             {
-                choice = getCoice(menu());
+                choice = getChoice(menu());
 
                 switch (choice)
                 {
                     case "a":
-                        currentSeries = convertToNum(getSeries());
+                        string[] stringSeries = getSeries();
+                        currentSeries = convertToNum(stringSeries);
                         continue;
                     case "b":
                         displayByOrder(currentSeries);
                         continue;
                     case "c":
-                        displayRevers(currentSeries);
+                        displayReverse(currentSeries);
                         continue;
                     case "d":
-                        displayByOrder(sortSeries(currentSeries));
+                        List<float> sortNumSeries = sortSeries(currentSeries);
+                        displayByOrder(sortNumSeries);
                         continue;
                     case "e":
-                        Console.WriteLine(displayMax(currentSeries));
+                        float max = displayMax(currentSeries);
+                        Console.WriteLine(max);
                         continue;
                     case "f":
-                        Console.WriteLine(displayMin(currentSeries));
+                        float min = displayMin(currentSeries);
+                        Console.WriteLine(min);
                         continue;
                     case "g":
-                        Console.WriteLine(displayAverage(currentSeries));
+                        float average = displayAverage(currentSeries);
+                        Console.WriteLine(average);
                         continue;
                     case "h":
-                        Console.WriteLine(seriesLen(currentSeries));
+                        int len = seriesLen(currentSeries);
+                        Console.WriteLine(len);
                         continue;
                     case "i":
-                        Console.WriteLine(displaySum(currentSeries));
+                        float sum = displaySum(currentSeries);
+                        Console.WriteLine(sum);
                         continue;
                 }
 
@@ -287,13 +294,16 @@ namespace Series_Analyzer
 
         static void Main(string[] args)
         {
-            if (validateSeries(args))
+            bool isValidate = validateSeries(args);
+
+            if (isValidate)
             {
                 currentSeries = convertToNum(args);
             }
            else
             {
-                currentSeries = convertToNum(getSeries());
+                string[] stringSeries = getSeries();
+                currentSeries = convertToNum(stringSeries);
             }
 
             runMenu();

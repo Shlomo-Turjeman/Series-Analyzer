@@ -8,16 +8,30 @@ namespace Series_Analyzer
 {
     internal class Program
     {
+        //משתנה גלובלי של סדרת המספרים.
+        static List<float> currentSeries = new List<float>();
 
-        static bool validateSeries(string series)
+        //הדפסת שגיאה.
+        static void printError()
         {
-            if (series.Replace(" ", "").Length < 3)
+            Console.WriteLine("Invalid input please try agin: ");
+        }
+        
+        //בדיקה האם הסדרה עומדת בדרישות קלט.
+        static bool validateSeries(string[] series)
+        {
+            if (series.Length < 3)
             {
                 return false;
             }
-            foreach (char item in series)
+            foreach (string item in series)
             {
-                if ((item.ToString() != " ") && (item < '0' || item > '9'))
+                if ((item != " ") && (! float.TryParse(item, out _)))
+                {
+                    return false;
+                }
+
+                if (float.Parse(item) < 0)
                 {
                     return false;
                 }
@@ -25,44 +39,49 @@ namespace Series_Analyzer
 
             return true;
         }
+
+        //קבלת סדרת מספרים מהמשתמש ובדיקת הקלט.
         static string[] getSeries()
         {
-            string strNumbers = "";
+            string[] numStrArr;
+
             do
             {
-                Console.WriteLine("Enter series of number with a space");
-                strNumbers = Console.ReadLine();
-            }
-            while (!validateSeries(strNumbers));
+                Console.WriteLine("Enter series of positive number with a space: ");
+                numStrArr = Console.ReadLine().Split(' ');
 
-            string[] numStrArr = strNumbers.Split(' ');
+                if (! validateSeries(numStrArr))
+                {
+                    printError();
+                }
+            }
+            while (!validateSeries(numStrArr));
 
             return numStrArr;
         }
 
-        static List<int> convertToNum()
+        //המרת סדרת המספרים לרשימה של מספרים.
+        static List<float> convertToNum(string[] strNumList)
         {
-            string[] strNumList = getSeries();
-
-            List<int> seriesNumbers = new List<int>();
+            List<float> seriesNumbers = new List<float>();
 
             foreach (string strNum in strNumList)
             {
-                if (int.TryParse(strNum, out _))
+                if (float.TryParse(strNum, out _))
                 {
-                    seriesNumbers.Add(int.Parse(strNum));
+                    seriesNumbers.Add(float.Parse(strNum));
                 }
             }
 
             return seriesNumbers;
         }
 
-
+        //הדפסת התפריט וקבלת בחירת המשתמש.
         static string menu()
         {
             Console.WriteLine("Menu:\n" +
                 "a. Input a Series. (Replace the current series)\n" +
-                "b. Display the series in the order it was entered." +
+                "b. Display the series in the order it was entered.\n" +
                 "c. Display the series in the reversed order it was entered.\n" +
                 "d. Display the series in sorted order (from low to high).\n" +
                 "e. Display the Max value of the series.\n" +
@@ -78,84 +97,208 @@ namespace Series_Analyzer
             return choice;
         }
 
+        //אימות בחירת המשתמש.
         static bool validateCoice(string userChoice)
         {
             string[] options = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j" };
 
-            return options.Contains(userChoice);
+            if (! options.Contains(userChoice))
+            {
+                printError();
+                return false;
+            }
+            return true;
         }
 
+        //לולאה לבקשת בחירה חוזרת כשהקלט לא תקין.
         static string getCoice(string userChoice)
         {
             while (! validateCoice(userChoice))
             {
-                Console.WriteLine("Invalid choice please try agin: ");
                 userChoice = Console.ReadLine();
             }
 
             return userChoice;
         }
 
-        static List<int> replaceSreies(List<int> sreies)
+        //הצגת הסדרה בסדר שהמשתמש הכניס.
+        static void displayByOrder(List<float> sreies)
         {
-            sreies.Clear();
-            List<int> newSeries = convertToNum();
-
-            foreach (int num in sreies)
+            foreach (float num in sreies)
             {
-                sreies.Add(num);
+                Console.Write(num + " ");
             }
-            return sreies;
+
+            Console.WriteLine("");
         }
 
-        static void displayByOrder(List<int> sreies)
-        {
-            foreach (int num in sreies)
-            {
-                Console.Write(num + ",");
-            }
-        }
-
-        static int seriesLen(List<int> sreies)
+        //בדיקת אורך הסדרה.
+        static int seriesLen(List<float> sreies)
         {
             int len = 0;
-            
-            foreach (int num in sreies)
+
+            foreach (float num in sreies)
             {
                 len++;
             }
             return len;
         }
-           
-        static void displayRevers(List<int> sreies)
+
+        //הצגת הסדרה בסדר הפוך מהסדר שהמשתמש הכניס.
+        static void displayRevers(List<float> sreies)
         {
             int len = seriesLen(sreies);
 
-            for (int i = len; i >= 0; i--)
+            for (int i = len - 1; i >= 0; i--)
             {
-                Console.Write(i + ",");
+                Console.Write(sreies[i] + ",");
             }
+            Console.WriteLine("");
         }
-        static void Main(string[] args)
-        {
-            List<int> currentSeries = new List<int>();
-            string choice;
 
-            if (! validateSeries(args.ToString()))
+        //מיון סדרת המספרים.
+        static List<float> sortSeries(List<float> sreies)
+        {
+            int i, j, len;
+            float current;
+            bool flag;
+            len = seriesLen(sreies);
+
+            for (i = 0; i < len - 1; i++)
             {
-                currentSeries = convertToNum();
+                flag = false;
+                for (j = 0; j < len - i - 1; j++)
+                {
+                    if (sreies[j] > sreies[j + 1])
+                    {
+                        current = sreies[j];
+                        sreies[j] = sreies[j + 1];
+                        sreies[j + 1] = current;
+                        flag = true;
+                    }
+                }
+
+                if (! flag)
+                    break;
             }
-           else
+            return sreies;
+        }
+
+
+        //מציאת המספר הכי גדול בסדרה.
+        static float displayMax(List<float> sreies)
+        {
+            float currentMax = sreies[0];
+
+            foreach (float num in sreies)
             {
-                currentSeries = convertToNum();
+                if (num > currentMax)
+                {
+                    currentMax = num;
+                }
             }
+
+           return currentMax;
+        }
+
+        //מציאת המספר הכי קטו בסדרה.
+        static float displayMin(List<float> sreies)
+        {
+            float currentMin = sreies[0];
+
+            foreach (float num in sreies)
+            {
+                if (num < currentMin)
+                {
+                    currentMin = num;
+                }
+            }
+
+            return currentMin;
+        }
+
+        //חישוב סכום הסדרה.
+        static float displaySum(List<float> sreies)
+        {
+            float sum = 0;
+
+            foreach (float num in sreies)
+            {
+                sum += num;
+            }
+
+            return sum;
+        }
+
+        //חישוב ממוצע הסדרה.
+        static float displayAverage(List<float> sreies)
+        {
+            float sum = displaySum(sreies);
+            float len = seriesLen(sreies);
+            
+            return sum / len;
+        }
+
+        //ביצוע הפעולה שנבחרה מהתפריט.
+        static void runMenu()
+        {
+            string choice;
 
             do
             {
                 choice = getCoice(menu());
+
+                switch (choice)
+                {
+                    case "a":
+                        currentSeries = convertToNum(getSeries());
+                        continue;
+                    case "b":
+                        displayByOrder(currentSeries);
+                        continue;
+                    case "c":
+                        displayRevers(currentSeries);
+                        continue;
+                    case "d":
+                        displayByOrder(sortSeries(currentSeries));
+                        continue;
+                    case "e":
+                        Console.WriteLine(displayMax(currentSeries));
+                        continue;
+                    case "f":
+                        Console.WriteLine(displayMin(currentSeries));
+                        continue;
+                    case "g":
+                        Console.WriteLine(displayAverage(currentSeries));
+                        continue;
+                    case "h":
+                        Console.WriteLine(seriesLen(currentSeries));
+                        continue;
+                    case "i":
+                        Console.WriteLine(displaySum(currentSeries));
+                        continue;
+                }
+
             }
             while (choice != "j");
 
+            Console.WriteLine("Bey");
+        }
+
+        static void Main(string[] args)
+        {
+            if (validateSeries(args))
+            {
+                currentSeries = convertToNum(args);
+            }
+           else
+            {
+                currentSeries = convertToNum(getSeries());
+            }
+
+            runMenu();
         }
     }
 }
+ 
+  

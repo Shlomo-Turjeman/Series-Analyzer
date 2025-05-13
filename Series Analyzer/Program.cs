@@ -31,7 +31,7 @@ namespace Series_Analyzer
                     return false;
                 }
 
-                if (float.Parse(item) < 0)
+                if (float.Parse(item) <= 0)
                 {
                     return false;
                 }

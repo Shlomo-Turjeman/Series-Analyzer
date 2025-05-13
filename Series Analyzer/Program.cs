@@ -312,17 +312,6 @@ namespace Series_Analyzer
 
         static void Main(string[] args)
         {
-           // bool isValidate = validateSeries(args);
-
-           // if (isValidate)
-           // {
-           //     currentSeries = convertToNum(args);
-           // }
-           //else
-           // {
-           //     string[] stringSeries = getSeries();
-           //     currentSeries = convertToNum(stringSeries);
-           // }
             setSeries(args);
             runMenu();
         }

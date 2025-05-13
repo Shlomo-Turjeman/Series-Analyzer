@@ -151,7 +151,11 @@ namespace Series_Analyzer
 
             for (int i = len - 1; i >= 0; i--)
             {
+<<<<<<< HEAD
                 Console.Write(series[i] + " ");
+=======
+                Console.Write(sreies[i] + " ");
+>>>>>>> 62cd83daa2d53f0eef26899921669d601b4808fd
             }
             Console.WriteLine("");
         }
@@ -312,3 +316,8 @@ namespace Series_Analyzer
         }
     }
 }
+<<<<<<< HEAD
+=======
+ 
+  
+>>>>>>> 62cd83daa2d53f0eef26899921669d601b4808fd
